@@ -1,4 +1,4 @@
-{
+export const schema ={
   "firstName": {
     "required": true,
     "minLength": "2",

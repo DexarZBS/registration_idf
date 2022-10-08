@@ -1,17 +1,18 @@
 export interface IRegistrationState {
-    signUpInfo:{
-        phone:string;
-        email:string;
-        password:string;
-    }
-    personalInfo:{
-        firstName:string;
-        lastName:string;
-        sex:string;
-        birthday:string;
-        favoriteOcean:string;
-        hobby:string;
-    }
+    signUpInfo: {
+        phone: string;
+        email: string;
+        password: string;
+    };
+    personalInfo: {
+        firstName: string;
+        lastName: string;
+        sex: string;
+        birthday: string;
+        favoriteOcean: string;
+        hobby: string[];
+    };
+    selectPage: 'signUpForm' | 'personalForm' | 'result';
 }
 
 export enum RegistrationActionType {
@@ -21,12 +22,12 @@ export enum RegistrationActionType {
 
 interface ISetSignUpInfo {
     type: RegistrationActionType.SET_SIGN_UP_INFO
-    payload: {phone:string, email:string, password:string}
+    payload: { phone: string, email: string, password: string }
 }
 
 interface ISetPersonalInfo {
     type: RegistrationActionType.SET_PERSONAL_INFO
-    payload: {firstName:string, lastName:string,sex:string,birthday:string,favoriteOcean:string,hobby:string}
+    payload: { firstName: string, lastName: string, sex: string, birthday: string, favoriteOcean: string, hobby: string[] }
 }
 
 export type RegistrationActionTypes = ISetSignUpInfo | ISetPersonalInfo

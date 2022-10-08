@@ -91,4 +91,30 @@
       margin: 0 10px
     }
   }
+
+  .checkbox-input {
+    display: flex;
+    width: 200px;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      color: purple;
+    }
+
+    input {
+      margin-top: 0px;
+      width: 10%
+    }
+
+    label {
+      color: purple;
+    }
+  }
+
+  .error-value{
+    border: 1px solid red;
+    color:red;
+  }
+
 }

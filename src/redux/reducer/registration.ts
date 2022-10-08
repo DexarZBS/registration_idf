@@ -12,19 +12,22 @@ const initState: IRegistrationState = {
         sex:'',
         birthday:'',
         favoriteOcean:'',
-        hobby:'',
-    }
+        hobby:[],
+    },
+     selectPage:'signUpForm',
 }
 
-export const registrationReducer = (state: IRegistrationState = initState, action:RegistrationActionTypes) => {
+export const registrationReducer = (state: IRegistrationState = initState, action:RegistrationActionTypes):IRegistrationState => {
     switch (action.type) {
         case RegistrationActionType.SET_SIGN_UP_INFO: return {
             ...state,
-            signUpInfo:action.payload
+            signUpInfo:action.payload,
+            selectPage:'personalForm',
         }
         case  RegistrationActionType.SET_PERSONAL_INFO: return {
             ...state,
-            personalInfo: action.payload
+            personalInfo: action.payload,
+            selectPage:'result',
         }
         default: return state;
     }
