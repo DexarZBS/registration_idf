@@ -19,3 +19,7 @@ export const setPersonaInfoAction = (firstName:string, lastName:string,sex:strin
         hobby
     }
 })
+
+export const changeSignUpFormAction = () => ({
+    type: RegistrationActionType.TO_SIGN_UP_FORM
+})

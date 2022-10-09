@@ -22,19 +22,6 @@ const SignUpInfo = () => {
 
     const dispatch = useDispatch()
 
-    // const submitForm = () => {
-    //     const refsArray: (IRefs | null)[] = [phoneRef, emailRef, passwordRef, passwordCheckRef]
-    //     refsArray.reduce((acc, element) => {
-    //         if (acc) {
-    //             return functionCompare(element?.value, element?.checkField)
-    //         } else {
-    //             functionCompare(element?.value, element?.checkField)
-    //             return false
-    //         }
-    //     }, true)
-    // }
-
-
     const submitForm = () => {
         const refsArray: Array<React.MutableRefObject<IRefs | null>> = [phoneRef, emailRef, passwordRef, passwordCheckRef];
         let validData = refsArray.reduce((acc, element) => {
@@ -58,8 +45,7 @@ const SignUpInfo = () => {
             e.preventDefault();
             submitForm()
         }}>
-            <div>
-                <label htmlFor="phoneInput">Mobile phone</label>
+            <div className="signup-inputs-container">
                 <InputMask className={error ?'error-value' : undefined} placeholder="Type your mobile phone number" mask="+375\ 99 999 99 99"
                            onChange={(event) => {
                                phoneRef.current = {
@@ -69,7 +55,6 @@ const SignUpInfo = () => {
                                }
                                setError(false)
                            }}/>
-                <label htmlFor="emailInput">Email</label>
                 <input className={error ?'error-value' : undefined} placeholder="Type your email" id="emailInput" type='email'
                        onChange={(event) => {
                            emailRef.current = {
@@ -79,7 +64,6 @@ const SignUpInfo = () => {
                            }
                            setError(false)
                        }}/>
-                <label htmlFor="passwordInput">Password</label>
                 <input className={error ?'error-value' : undefined} placeholder="Type your password" id="passwordInput" type="password"
                        onChange={(event) => {
                            passwordRef.current = {
@@ -89,7 +73,6 @@ const SignUpInfo = () => {
                            }
                            setError(false)
                        }}/>
-                <label htmlFor="repeatPasswordInput">Repeat password</label>
                 <input className={error ?'error-value' : undefined} placeholder="Repeat your password" id="repeatPasswordInput" type="password"
                        onChange={(event) => {
                            passwordCheckRef.current = {

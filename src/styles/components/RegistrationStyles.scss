@@ -4,16 +4,29 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 80%;
+  height: 70%;
   border-radius: 5px;
   background-color: white;
-
+  border-radius: 20px;
 
   h1 {
     margin: 10px auto 0px;
     color: purple;
     letter-spacing: 1px;
   }
+
+  .signup-inputs-container {
+    justify-content: center;
+    align-items: center;
+    margin-top: 30%;
+    margin-left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .ocean-container{
+    margin: 15px;
+  }
+
 
   input {
     border: black solid 1px;
@@ -23,6 +36,7 @@
     height: 35px;
     font-size: 15px;
     margin-top: 15px;
+    border-radius: 15px;
   }
 
   .input-container {
@@ -30,9 +44,12 @@
     justify-content: center;
     flex-direction: column;
     label {
-      color: purple;
       margin-top: 5px;
     }
+  }
+
+  select {
+    margin: 20px 0 0 0;
   }
 
   &__radio-buttons {
@@ -40,38 +57,32 @@
     width: 200px;
     align-items: center;
     justify-content: space-between;
-
-    p {
-      color: purple;
-    }
+    margin: 10px;
 
     input {
       margin-top: 0px;
       width: 10%
     }
 
-    label {
-      color: purple;
-    }
   }
 
-  .flex-inputs{
-    display:flex;
+  .flex-inputs {
+    display: flex;
     justify-content: space-evenly;
     flex-direction: row;
     align-items: center;
     width: 80%;
   }
 
-  .day-birthday{
+  .day-birthday {
     width: 15%;
   }
 
-  .month-birthday{
+  .month-birthday {
     width: 15%;
   }
 
-  .year-birthday{
+  .year-birthday {
     width: 20%;
   }
 
@@ -84,12 +95,20 @@
 
     button {
       border: black solid 1px;
-      border-radius: 2px;
+      border-radius: 15px;
       font-size: 15px;
       width: 34%;
       height: 35px;
-      margin: 0 10px
+      margin: 0 10px;
+      cursor:pointer;
+      &:hover{
+        box-shadow: 0 3px 3px 0 #2f2d2d;
+      }
     }
+  }
+
+  .checkbox-container {
+    margin: 10px;
   }
 
   .checkbox-input {
@@ -98,23 +117,15 @@
     align-items: center;
     justify-content: space-between;
 
-    p {
-      color: purple;
-    }
-
     input {
       margin-top: 0px;
       width: 10%
     }
-
-    label {
-      color: purple;
-    }
   }
 
-  .error-value{
+  .error-value {
     border: 1px solid red;
-    color:red;
+    color: red;
   }
 
 }

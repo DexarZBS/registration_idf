@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {schema} from "../validation/schema";
 import {functionCompare} from "../validation/validation";
-import {setPersonaInfoAction, setSignUpAction} from "../redux/actions/registrationActions";
+import {changeSignUpFormAction, setPersonaInfoAction} from "../redux/actions/registrationActions";
 import {useDispatch} from "react-redux";
+
 
 const oceans: any[] = schema['ocean']['oneOf']
 const hobbys: any[] = schema['hobby']['anyOf']
@@ -60,7 +61,7 @@ const PersonalInfo = () => {
             checkField: 'birthday',
         },
         ocean: {
-            value: '',
+            value: 'Atlantic',
             checkField: 'ocean',
         },
         hobby: {
@@ -97,8 +98,7 @@ const PersonalInfo = () => {
 
     const convertDate = () => {
         const birthDay = personalInfo.birthDay
-        const date = new Date(`${birthDay.month}-${birthDay.day}-${birthDay.year}`)
-        return date.toISOString()
+        return `${birthDay.month}-${birthDay.day}-${birthDay.year}`
     }
 
     const submitForm = () => {
@@ -106,7 +106,6 @@ const PersonalInfo = () => {
         const refsArray: [string, { value: string, checkField: checkFieldType }][] = Object.entries(personalInfo);
         let validData = refsArray.reduce((acc, element) => {
             if (acc) {
-                console.log(element[1].checkField)
                 if (element[1].checkField === 'birthday') {
                     return !!functionCompare(getFullYear(), schema[element[1].checkField])
                 } else {
@@ -122,82 +121,88 @@ const PersonalInfo = () => {
     }
 
     return (
-        <form className="form-container" onSubmit={(e)=>{
-            e.preventDefault()
-            submitForm()
-        }}>
-            <div className='input-container'>
-                <label htmlFor="firstName">First Name:</label>
-                <input className={error ? 'error-value' : undefined} id="firstName" type="text" placeholder="First name"
-                       value={personalInfo.firstName.value}
-                       onChange={(event) => {
-                           changeHandler(event.target.value, "firstName")
-                       }}/>
-                <label htmlFor="lastName">Last Name:</label>
-                <input className={error ? 'error-value' : undefined} id="lastName" type="text" placeholder="Last name"
-                       value={personalInfo.lastName.value}
-                       onChange={(event) => {
-                           changeHandler(event.target.value, "lastName")
-                       }}/>
-            </div>
-            <div className='form-container__radio-buttons'>
-                <p>Sex:</p>
-                <input className={error ? 'error-value' : undefined} type='radio' id='sexInput1' name="sexRadio"
-                       value="male"
-                       checked={personalInfo.sex.value === 'male'}
-                       onChange={(event) => {
-                           changeHandler(event.target.value, "sex")
-                       }}/>
-                <label htmlFor="sexInput1">Male</label>
-                <input className={error ? 'error-value' : undefined} type='radio' id='sexInput2' name="sexRadio"
-                       value="female"
-                       checked={personalInfo.sex.value === 'female'} onChange={(event) => {
-                    changeHandler(event.target.value, "sex")
-                }}/>
-                <label htmlFor="sexInput2">Female</label>
-            </div>
-            <div className='input-container flex-inputs'>
-                <label htmlFor="birthday">Birthday:</label>
-                <input className={error ? 'error-value day-birthday' : 'day-birthday'} id="birthday" type="number"
-                       placeholder="DD"
-                       value={personalInfo.birthDay.day}
-                       onChange={(event) => {
-                           changeBirthDay(event.target.value, "day")
-                       }}/>
-                <input className={error ? 'error-value month-birthday' : 'month-birthday'} id="birthday" type="number"
-                       placeholder="MM"
-                       value={personalInfo.birthDay.month} onChange={(event) => {
-                    changeBirthDay(event.target.value, "month")
-                }}/>
-                <input className={error ? 'error-value year-birthday' : 'year-birthday'} id="birthday" type="number"
-                       placeholder="YYYY"
-                       value={personalInfo.birthDay.year} onChange={(event) => {
-                    changeBirthDay(event.target.value, "year")
-                }}/>
-            </div>
-            <select value={personalInfo.ocean.value} onChange={event => {
-                changeHandler(event.target.value, "ocean")
+        <div className="personal-info-inputs">
+            <form className="form-container" onSubmit={(e) => {
+                e.preventDefault()
+                submitForm()
             }}>
-                {oceans.map(elem => <option>{elem}</option>)}
-            </select>
-            <div>
-                {hobbys.map((elem, index) => {
-                    return <div className="checkbox-input" key={index}>
-                        <label htmlFor={`${elem + index}`}>{elem}</label>
-                        <input className={error ? 'error-value' : undefined}
-                               checked={personalInfo.hobby.value.includes(elem)} id={`${elem + index}`}
-                               type="checkbox" onChange={(event) => {
-                            changeHandlerHobby(elem)
-                        }}/>
-                    </div>
-                })}
-            </div>
-            <div className='button-container'>
-                <button>Change SignUp Information</button>
-                <button>Complete</button>
-            </div>
-
-        </form>
+                <div className='input-container'>
+                    <input className={error ? 'error-value' : undefined} id="firstName" type="text"
+                           placeholder="First name"
+                           value={personalInfo.firstName.value}
+                           onChange={(event) => {
+                               changeHandler(event.target.value, "firstName")
+                           }}/>
+                    <input className={error ? 'error-value' : undefined} id="lastName" type="text"
+                           placeholder="Last name"
+                           value={personalInfo.lastName.value}
+                           onChange={(event) => {
+                               changeHandler(event.target.value, "lastName")
+                           }}/>
+                </div>
+                <div className='form-container__radio-buttons'>
+                    <p>Sex:</p>
+                    <input className={error ? 'error-value' : undefined} type='radio' id='sexInput1' name="sexRadio"
+                           value="male"
+                           checked={personalInfo.sex.value === 'male'}
+                           onChange={(event) => {
+                               changeHandler(event.target.value, "sex")
+                           }}/>
+                    <label htmlFor="sexInput1">Male</label>
+                    <input className={error ? 'error-value' : undefined} type='radio' id='sexInput2' name="sexRadio"
+                           value="female"
+                           checked={personalInfo.sex.value === 'female'} onChange={(event) => {
+                        changeHandler(event.target.value, "sex")
+                    }}/>
+                    <label htmlFor="sexInput2">Female</label>
+                </div>
+                <div className='input-container flex-inputs'>
+                    <label htmlFor="birthday">Birthday:</label>
+                    <input className={error ? 'error-value day-birthday' : 'day-birthday'} id="birthday" type="number"
+                           placeholder="DD"
+                           value={personalInfo.birthDay.day}
+                           onChange={(event) => {
+                               changeBirthDay(event.target.value, "day")
+                           }}/>
+                    <input className={error ? 'error-value month-birthday' : 'month-birthday'} id="birthday"
+                           type="number"
+                           placeholder="MM"
+                           value={personalInfo.birthDay.month} onChange={(event) => {
+                        changeBirthDay(event.target.value, "month")
+                    }}/>
+                    <input className={error ? 'error-value year-birthday' : 'year-birthday'} id="birthday" type="number"
+                           placeholder="YYYY"
+                           value={personalInfo.birthDay.year} onChange={(event) => {
+                        changeBirthDay(event.target.value, "year")
+                    }}/>
+                </div>
+                <div className="ocean-container">
+                    <label htmlFor="ocean">Your favorite ocean: </label>
+                    <select id="ocean" value={personalInfo.ocean.value} onChange={event => {
+                        changeHandler(event.target.value, "ocean")
+                    }}>
+                        {oceans.map((elem,index) => <option key={index}>{elem}</option>)}
+                    </select>
+                </div>
+                <div className="checkbox-container">
+                    <p>You favorite hobby (or hobbys):</p>
+                    {hobbys.map((elem, index) => {
+                        return <div className="checkbox-input" key={index}>
+                            <label htmlFor={`${elem + index}`}>{elem}</label>
+                            <input className={error ? 'error-value' : undefined}
+                                   checked={personalInfo.hobby.value.includes(elem)} id={`${elem + index}`}
+                                   type="checkbox" onChange={(event) => {
+                                changeHandlerHobby(elem)
+                            }}/>
+                        </div>
+                    })}
+                </div>
+                <div className='button-container'>
+                    <button onClick={() => dispatch(changeSignUpFormAction())}>Change SignUp Information</button>
+                    <button onClick={() => submitForm()}>Complete</button>
+                </div>
+            </form>
+        </div>
     );
 };
 

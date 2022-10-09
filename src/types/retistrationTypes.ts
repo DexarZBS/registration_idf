@@ -17,7 +17,8 @@ export interface IRegistrationState {
 
 export enum RegistrationActionType {
     SET_SIGN_UP_INFO = "SET_SIGN_UP_INFO",
-    SET_PERSONAL_INFO = 'SET_PERSONAL_INFO'
+    SET_PERSONAL_INFO = 'SET_PERSONAL_INFO',
+    TO_SIGN_UP_FORM = "TO_SIGN_UP_FORM",
 }
 
 interface ISetSignUpInfo {
@@ -30,4 +31,8 @@ interface ISetPersonalInfo {
     payload: { firstName: string, lastName: string, sex: string, birthday: string, favoriteOcean: string, hobby: string[] }
 }
 
-export type RegistrationActionTypes = ISetSignUpInfo | ISetPersonalInfo
+interface IToSignUpForm {
+    type: RegistrationActionType.TO_SIGN_UP_FORM
+}
+
+export type RegistrationActionTypes = ISetSignUpInfo | ISetPersonalInfo | IToSignUpForm

@@ -29,6 +29,10 @@ export const registrationReducer = (state: IRegistrationState = initState, actio
             personalInfo: action.payload,
             selectPage:'result',
         }
+        case RegistrationActionType.TO_SIGN_UP_FORM: return {
+            ...state,
+            selectPage: "signUpForm"
+        }
         default: return state;
     }
 }
